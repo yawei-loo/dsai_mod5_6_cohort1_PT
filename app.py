@@ -4,7 +4,7 @@ from flask import Flask, request, render_template
 import google.generativeai as genai
 import os
 
-api_key = os.environ("GEMINI_API_KEY")
+api_key = os.getenv("GOOGLE_API_KEY")
 #AIzaSyDD89GjmQPDluuUAojC7ds-Ramlc1XVrcc
 genai.configure(api_key="api_key")
 model = genai.GenerativeModel("gemini-2.0-flash")
