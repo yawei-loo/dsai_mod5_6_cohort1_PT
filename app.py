@@ -4,9 +4,10 @@ from flask import Flask, request, render_template
 import google.generativeai as genai
 import os
 
-api_key = os.getenv("GOOGLE_API_KEY")
+#api_key = os.getenv("GOOGLE_API_KEY")
 #AIzaSyDD89GjmQPDluuUAojC7ds-Ramlc1XVrcc
-genai.configure(api_key="api_key")
+#genai.configure(api_key="api_key")
+genai.configure(api_key="AIzaSyDD89GjmQPDluuUAojC7ds-Ramlc1XVrcc")
 model = genai.GenerativeModel("gemini-2.0-flash")
 
 app = Flask(__name__)
