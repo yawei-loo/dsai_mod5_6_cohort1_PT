@@ -3,6 +3,8 @@
 from flask import Flask, request, render_template
 import google.generativeai as genai
 import os
+import sqlite3
+import datetime
 
 api_key = os.getenv("gemini") #AIzaSyBTInBvJ6wvpw8rHHOFspHIIJYLkNQLFL8
 #AIzaSyDD89GjmQPDluuUAojC7ds-Ramlc1XVrcc
@@ -20,6 +22,19 @@ def index():
 def gemini():
     return(render_template("gemini.html"))
 
+@app.route("/main", methods=["GET","POST"])
+def main():   
+    q = request.form.get("q")
+    if q:
+        t = datetime.datetime.now().astimezone()
+        conn = sqlite3.connect('user.db')
+        c = conn.cursor()
+        c.execute("Insert into users(name,timestamp) values(?,?)",(q,t))
+        conn.commit()
+        c.close()
+        conn.close()
+    return(render_template("main.html"))
+
 @app.route("/gemini_reply", methods=["GET","POST"])
 def gemini_reply():
     q = request.form.get("q")
@@ -27,6 +42,38 @@ def gemini_reply():
     #gemini
     r = model.generate_content(q)
     return(render_template("gemini_reply.html",r=r.text))
+
+@app.route("/paynow", methods=["GET","POST"])
+def paynow():
+    return(render_template("paynow.html"))
+
+@app.route("/user_log", methods=["GET","POST"])
+def user_log():
+    conn = sqlite3.connect('user.db')
+    c = conn.cursor()
+    c.execute("select * from users")
+    r=""
+    count = 0
+    for row in c:
+        r = r + str(row)
+        count = count + 1
+    c.close()
+    conn.close()
+    return(render_template("user_log.html",r=r,count=count))
+
+@app.route("/delete_log", methods=["GET","POST"])
+def delete_log():
+    conn = sqlite3.connect('user.db')
+    c = conn.cursor()
+    c.execute("Delete from users")
+    conn.commit()
+    c.close()
+    conn.close()
+    return(render_template("delete_log.html", r="All logs deleted successfully!"))
+
+@app.route("/logout", methods=["GET","POST"])
+def logout():
+    return(render_template("index.html"))
 
 if __name__== "__main__":
     app.run()
