@@ -43,9 +43,21 @@ def gemini_reply():
     r = model.generate_content(q)
     return(render_template("gemini_reply.html",r=r.text))
 
+
+@app.route("/prediction_reply", methods=["GET","POST"])
+def prediction_reply():
+    q = float(request.form.get("q"))
+    print(q)
+    r = 90.2+(-50.6*q)
+    return(render_template("prediction_reply.html",r=r))
+
 @app.route("/paynow", methods=["GET","POST"])
 def paynow():
     return(render_template("paynow.html"))
+
+@app.route("/prediction", methods=["GET","POST"])
+def prediction():
+    return(render_template("prediction.html"))
 
 @app.route("/user_log", methods=["GET","POST"])
 def user_log():
