@@ -1,19 +1,13 @@
 <head>
-    <meta name="viewport" content="width=device-width,inital-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <meta name ="viewport" content ="width=device-width,initial-scale=1.0">
+    <link rel="stylesheet" href="{{url_for('static',filename='styles.css')}}">
 </head>
-
 <body>
-    <div class=“container”>
-        <h2>Financial Chatbot by Gemini</h2>
-        
-        <form action="/telegram" method="post">
-            <input type="text" name="q">
-            <input type="submit" value="Enter">
-        </form>
-       
-         <form action="/" method="post">
+    <div class="container">
+        <h2>Financial Advisor Chatbot in Telegram</h2>
+        <h4>{{status}}</h4>
+        <form action="/home" method="post">         
             <input type="submit" value="Main">
-         </form>
+        </form>
     </div>
 </body>
