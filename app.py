@@ -2,7 +2,7 @@
 
 from flask import Flask, request, render_template
 from google import genai
-import google.generativeai as genai2
+#import google.generativeai as genai2
 import os
 import sqlite3
 import datetime
@@ -11,10 +11,10 @@ import requests
 
 api_key = os.getenv("gemini") #AIzaSyBTInBvJ6wvpw8rHHOFspHIIJYLkNQLFL8
 #AIzaSyDD89GjmQPDluuUAojC7ds-Ramlc1XVrcc
-genai2.configure(api_key="api_key")
+#genai2.configure(api_key="api_key")
 
 #genai.configure(api_key="AIzaSyDD89GjmQPDluuUAojC7ds-Ramlc1XVrcc")
-model = genai2.GenerativeModel("gemini-2.0-flash")
+#model = genai2.GenerativeModel("gemini-2.0-flash")
 gemini_telegram_token = os.getenv("gemini_telegram_token") 
 
 gemini_client = genai.Client(api_key=api_key)
@@ -48,7 +48,12 @@ def gemini_reply():
     q = request.form.get("q")
     print(q)
     #gemini
-    r = model.generate_content(q)
+    #r = model.generate_content(q)
+    r = gemini_client.models.generate_content(
+        model=gemini_model,
+        contents=q
+    )
+           
     return(render_template("gemini_reply.html",r=r.text))
 
 
