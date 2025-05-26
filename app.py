@@ -18,7 +18,7 @@ model = genai2.GenerativeModel("gemini-2.0-flash")
 gemini_telegram_token = os.getenv("gemini_telegram_token") 
 
 gemini_client = genai.Client(api_key=api_key)
-gemini_model = gemini_client.get_model("gemini-2.0-flash")
+gemini_model = "gemini-2.0-flash"
 
 app = Flask(__name__)
 
