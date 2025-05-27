@@ -99,8 +99,9 @@ def telegram():
             r_text = "Welcome to the Gemini Telegram Bot! You can ask me any finance-related questions."
         else:
             # Process the message and generate a response
+            system_prompt_math = "You are a mathematics expert.  Answer ONLY questions related to mathematics. If the question is not related to mathematics, state that you cannot answer it."
             system_prompt = "You are a financial expert.  Answer ONLY questions related to finance, economics, investing, and financial markets. If the question is not related to finance, state that you cannot answer it."
-            prompt = f"{system_prompt}\n\nUser Query: {text}"
+            prompt = f"{system_prompt_math}\n\nUser Query: {text}"
             r = gemini_client.models.generate_content(
                 model=gemini_model,
                 contents=prompt
